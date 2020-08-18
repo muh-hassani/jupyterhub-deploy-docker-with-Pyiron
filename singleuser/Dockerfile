@@ -1,4 +1,3 @@
-ARG DOCKER_NOTEBOOK_IMAGE
-FROM $DOCKER_NOTEBOOK_IMAGE
-ARG JUPYTERHUB_VERSION
-RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
+FROM jupyter/minimal-notebook:latest
+RUN /opt/conda/bin/conda install jupyterhub && \
+    /opt/conda/bin/conda install -c conda-forge pyiron

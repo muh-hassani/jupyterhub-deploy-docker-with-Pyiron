@@ -53,8 +53,9 @@ c.JupyterHub.ssl_key = os.environ['SSL_KEY']
 c.JupyterHub.ssl_cert = os.environ['SSL_CERT']
 
 # Authenticate users with GitHub OAuth
-c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
-c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
+c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
+#c.JupyterHub.authenticator_class = 'oauthenticator.GitHubOAuthenticator'
+#c.GitHubOAuthenticator.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
 
 # Persist hub data on volume mounted inside container
 data_dir = os.environ.get('DATA_VOLUME_CONTAINER', '/data')
@@ -69,6 +70,7 @@ c.JupyterHub.db_url = 'postgresql://postgres:{password}@{host}/{db}'.format(
 )
 
 # Whitlelist users and admins
+c.LocalAuthenticator.create_system_users=True
 c.Authenticator.whitelist = whitelist = set()
 c.Authenticator.admin_users = admin = set()
 c.JupyterHub.admin_access = True

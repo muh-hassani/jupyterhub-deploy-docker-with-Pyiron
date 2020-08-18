@@ -1,7 +1,30 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 ARG JUPYTERHUB_VERSION
-FROM jupyterhub/jupyterhub-onbuild:$JUPYTERHUB_VERSION
+FROM jupyterhub/jupyterhub-onbuild:latest
+
+# Configure environment
+ENV CONDA_DIR /opt/conda/
+ENV PATH ${CONDA_DIR}/bin:${PATH}
+ENV SHELL /bin/bash
+ENV PYIRON_USER pyiron
+ENV PYIRON_UID 1000
+
+
+# Configure Miniconda
+ENV MINICONDA_VER 4.8.2
+ENV MINICONDA Miniconda3-py37_${MINICONDA_VER}-Linux-x86_64.sh
+ENV MINICONDA_URL https://repo.continuum.io/miniconda/${MINICONDA}
+ENV MINICONDA_MD5_SUM 87e77f097f6ebb5127c77662dfc3165e
+
+USER root
+RUN mkdir -p ${CONDA_DIR} \
+    && curl -L ${MINICONDA_URL}  -o miniconda.sh \
+    && echo "${MINICONDA_MD5_SUM}  miniconda.sh" | md5sum -c - \
+    && ${SHELL} miniconda.sh -f -b -p ${CONDA_DIR} \
+    && rm miniconda.sh \
+    && ${CONDA_DIR}/bin/conda install --yes conda==${MINICONDA_VER}
+
 
 # Install dockerspawner, oauth, postgres
 RUN /opt/conda/bin/conda install -yq psycopg2=2.7 && \
