@@ -19,7 +19,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The structure of the repository is similar to <a href=\"https://github.com/jupyterhub/jupyterhub-deploy-docker\">the original repository</a>. Therefore, for more details you can refer to the original repository. Here, I try to explain what modifications have been made."
+    "The structure of the repository is similar to <a href=\"https://github.com/jupyterhub/jupyterhub-deploy-docker\">the original repository</a>. Therefore, for more details you can refer to the repository. Here, I try to explain what modifications have been made."
    ]
   },
   {
@@ -27,14 +27,14 @@
    "metadata": {},
    "source": [
     "### Creating the image of a single-user notebook \n",
-    "To build the single-user notebook images, first we use `make notebook` command. "
+    "To build the single-user notebook images, first we use `make notebook`. "
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In the `single-user/Dockerfile` file, we included the installation of pyiron asconda-forge package."
+    "In the `single-user/Dockerfile` file, we included installation of pyiron via conda-forge channel."
    ]
   },
   {
@@ -42,7 +42,7 @@
    "metadata": {},
    "source": [
     "## Building the docker-compose.yml\n",
-    "In the second step, the hub image and the database image is created. By performing `make build`, beside creating docker volumes for persistence of data, and copying several files (secrets, userlist, jupyterhub_config.py) to the created image, the `docker-compose.yml` file is used to create the image for the hub and the database."
+    "In the second step, the hub image and the database image is created. By performing `make build`, beside creating docker volumes and copying several files (secrets, userlist, jupyterhub_config.py) to the created image, the `docker-compose.yml` file is used to create the image for the hub and the database."
    ]
   },
   {
@@ -58,6 +58,13 @@
    "source": [
     "There are minor changes to the `Dockerfile.jupyterhub` file to include conda package in the docker image."
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
