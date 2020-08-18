@@ -1,3 +1,5 @@
 secrets/
 userlist
+README.ipynb
+.ipynb_checkpoints/
 .DS_Store
